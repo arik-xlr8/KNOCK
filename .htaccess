@@ -1,0 +1,4 @@
+RewriteEngine On
+
+RewriteRule ^api/design$ api/design.php [L,QSA]
+RewriteRule ^api/image$ api/image.php [L,QSA]

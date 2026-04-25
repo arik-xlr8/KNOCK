@@ -208,7 +208,13 @@ async function generate() {
       })
     });
 
-    const data = await response.json();
+    const responseText = await response.text();
+    let data;
+    try {
+      data = JSON.parse(responseText);
+    } catch {
+      throw new Error("The API endpoint did not return JSON. On shared hosting, upload .htaccess and the api folder so /api/design is handled by PHP.");
+    }
     if (!response.ok) throw new Error(data.error || "AI request failed.");
 
     interpretation.textContent = data.plan.interpretation || "The prompt was converted into a visual subject.";

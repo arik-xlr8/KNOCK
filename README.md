@@ -90,6 +90,22 @@ Then open:
 http://localhost:3001
 ```
 
+## Shared Hosting Deployment
+
+For PHP-based shared hosting such as Hostinger Business Hosting, upload these files and folders to `public_html`:
+
+- `index.html`
+- `style.css`
+- `app.js`
+- `.htaccess`
+- `api/`
+- `MANIFESTO.md`
+- `README.md`
+
+The live site does not need `node server.js` if PHP is available. The `.htaccess` file routes `/api/design` to `api/design.php` and `/api/image` to `api/image.php`, so the frontend can keep using the same API URLs.
+
+If the page shows an error like `Unexpected token '<'`, the API route is returning an HTML page instead of JSON. In that case, make sure `.htaccess` and the full `api` folder were uploaded to the hosting root.
+
 ## Dependencies and API Requirements
 
 The project uses Pollinations by default and does not require a paid API key for the basic workflow.
@@ -97,6 +113,7 @@ The project uses Pollinations by default and does not require a paid API key for
 Runtime dependencies:
 
 - Node.js built-in `http`, `fs`, `path`, and `url` modules
+- PHP 7.4 or newer for shared hosting deployment
 - Pollinations text API
 - Pollinations image API
 
@@ -136,5 +153,7 @@ Suggested screenshots for final submission:
 - `style.css`: 256-tile CSS mosaic design, iOS-style switch, and loader overlay
 - `app.js`: Frontend rendering, song prompt buttons, Dylan context toggle, and image sampling
 - `server.js`: Pollinations text/image API proxy and static server
+- `api/`: PHP backend for shared hosting deployment
+- `.htaccess`: Apache routes for PHP API endpoints
 - `MANIFESTO.md`: Artist's manifesto
 - `.env.example`: Environment variable example
