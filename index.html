@@ -1,1 +1,99 @@
-<p>Selam</p>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KNOCK - 256 Tile Prompt Mosaic</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <section class="panel">
+      <p class="eyebrow">CSE 358 / KNOCK</p>
+      <h1>256 Tile Mosaic</h1>
+      <p class="intro">
+        Type any prompt. The AI generates that subject as an image, then the browser samples it into a 16x16 grid of 256 CSS tiles.
+      </p>
+
+      <label>
+        Prompt
+        <textarea id="prompt">bear</textarea>
+      </label>
+
+      <label>
+        Bob Dylan song prompts
+        <select id="songSelect">
+          <option value="knockin">Knockin' on Heaven's Door</option>
+          <option value="blowin">Blowin' in the Wind</option>
+          <option value="times">The Times They Are A-Changin'</option>
+          <option value="hardrain">A Hard Rain's A-Gonna Fall</option>
+          <option value="rolling">Like a Rolling Stone</option>
+        </select>
+      </label>
+
+      <div id="songPrompts" class="presets song-prompts" aria-label="Song-inspired prompt buttons"></div>
+
+      <div class="presets quick-prompts">
+        <button class="preset" data-prompt="bear">Bear</button>
+        <button class="preset" data-prompt="door">Door</button>
+        <button class="preset" data-prompt="badge">Badge</button>
+        <button class="preset" data-prompt="heaven's door">Heaven's Door</button>
+        <button class="preset" data-prompt="farewell">Farewell</button>
+        <button class="preset" data-prompt="mama">Mama</button>
+      </div>
+
+      <label class="toggle">
+        <input id="imageToggle" type="checkbox" checked>
+        Generate a text-to-image reference
+      </label>
+
+      <button id="generate" class="primary">Generate Mosaic</button>
+
+      <div class="tech">
+        <strong>Two AI techniques</strong>
+        <span>1. LLM: prompt analysis and subject extraction</span>
+        <span>2. Image generation: reference image sampled into 256 CSS tiles</span>
+      </div>
+    </section>
+
+    <section class="stage">
+      <div class="mosaic-frame">
+        <div class="frame-top">
+          <span id="title">waiting for prompt</span>
+          <span id="mood">256 tiles</span>
+        </div>
+        <div id="mosaic" class="mosaic" aria-label="AI-generated 256-tile mosaic"></div>
+      </div>
+
+      <section class="readout">
+        <article>
+          <p class="label">AI interpretation</p>
+          <p id="interpretation">Nothing generated yet.</p>
+        </article>
+        <article>
+          <p class="label">Technical output</p>
+          <p id="meta">Waiting for backend.</p>
+        </article>
+      </section>
+
+      <section class="reference">
+        <div>
+          <p class="label">Image reference</p>
+          <p id="imageStatus">No image yet.</p>
+        </div>
+        <img id="referenceImage" alt="AI image generation reference">
+      </section>
+    </section>
+  </main>
+
+  <div id="loaderOverlay" class="loader-overlay" aria-live="polite" aria-hidden="true">
+    <div class="loader-card">
+      <div class="loader-spinner" aria-hidden="true"></div>
+      <strong>Generating mosaic</strong>
+      <span>Creating the image reference and sampling it into 256 CSS tiles...</span>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
