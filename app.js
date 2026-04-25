@@ -4,6 +4,7 @@ const GRID_SIZE = 16;
 const mosaic = document.getElementById("mosaic");
 const promptInput = document.getElementById("prompt");
 const imageToggle = document.getElementById("imageToggle");
+const dylanToggle = document.getElementById("dylanToggle");
 const generateButton = document.getElementById("generate");
 const interpretation = document.getElementById("interpretation");
 const meta = document.getElementById("meta");
@@ -14,6 +15,7 @@ const mood = document.getElementById("mood");
 const songSelect = document.getElementById("songSelect");
 const songPrompts = document.getElementById("songPrompts");
 const loaderOverlay = document.getElementById("loaderOverlay");
+const artworkNotes = document.getElementById("artworkNotes");
 
 const songPromptSets = {
   knockin: [
@@ -152,6 +154,34 @@ function setLoading(isLoading) {
   loaderOverlay.setAttribute("aria-hidden", String(!isLoading));
 }
 
+function renderArtworkNotes(notes = {}) {
+  const items = [
+    ["Subject", notes.subject],
+    ["Threshold", notes.threshold],
+    ["Badge / Burden", notes.badge],
+    ["Farewell", notes.farewell],
+    ["Historical Context", notes.historical]
+  ].filter(([, value]) => value);
+
+  artworkNotes.innerHTML = "";
+  if (!items.length) {
+    const empty = document.createElement("p");
+    empty.textContent = "Dylan context notes are disabled for this generation.";
+    artworkNotes.appendChild(empty);
+    return;
+  }
+
+  for (const [label, value] of items) {
+    const card = document.createElement("article");
+    const heading = document.createElement("strong");
+    const text = document.createElement("p");
+    heading.textContent = label;
+    text.textContent = value;
+    card.append(heading, text);
+    artworkNotes.appendChild(card);
+  }
+}
+
 async function generate() {
   const prompt = promptInput.value.trim();
   if (!prompt) return;
@@ -173,7 +203,8 @@ async function generate() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         prompt,
-        generateImage: imageToggle.checked
+        generateImage: imageToggle.checked,
+        dylanContext: dylanToggle.checked
       })
     });
 
@@ -182,6 +213,7 @@ async function generate() {
 
     interpretation.textContent = data.plan.interpretation || "The prompt was converted into a visual subject.";
     meta.textContent = `${data.source} | subject: ${data.plan.subject || prompt}`;
+    renderArtworkNotes(data.plan.notes);
 
     if (data.imageUrl) {
       await setReferenceImage(data.imageUrl, data.plan);

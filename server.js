@@ -123,6 +123,37 @@ async function analyzePrompt(prompt) {
   };
 }
 
+async function buildDylanNotes(prompt, analysis) {
+  const instruction = [
+    "Write concise artwork notes for a creative AI project based on Bob Dylan's Knockin' on Heaven's Door.",
+    "Do not alter the visual subject. The image generation must remain about the user's subject.",
+    "Connect the subject symbolically to: threshold, badge/burden, farewell/mortality, and 1973 historical context including Vietnam-era counterculture and the western film context.",
+    "Return only raw JSON with keys: subject, threshold, badge, farewell, historical.",
+    `User prompt: ${prompt}`,
+    `Visual subject: ${analysis.subject}`
+  ].join("\n");
+  const url = `https://text.pollinations.ai/${encodeURIComponent(instruction)}?model=${encodeURIComponent(pollinationsTextModel)}`;
+  const text = await httpsGet(url);
+  const parsed = JSON.parse(text.replace(/^```json|```$/g, "").trim());
+  return {
+    subject: String(parsed.subject || `The visual subject remains ${analysis.subject}.`).slice(0, 260),
+    threshold: String(parsed.threshold || "").slice(0, 260),
+    badge: String(parsed.badge || "").slice(0, 260),
+    farewell: String(parsed.farewell || "").slice(0, 260),
+    historical: String(parsed.historical || "").slice(0, 320)
+  };
+}
+
+function localDylanNotes(prompt, analysis) {
+  return {
+    subject: `The visual subject remains "${analysis.subject}" so the free prompt is respected.`,
+    threshold: `The subject is treated as something encountered at a symbolic door: an image at the moment before crossing.`,
+    badge: `The badge idea appears as burden: the object can stand for something carried, named, or finally put down.`,
+    farewell: `The mosaic frames the subject as a farewell image, echoing transition, mortality, and release.`,
+    historical: `The notes connect the work to 1973, the Vietnam-era anti-war atmosphere, and the western film context without forcing those themes into the generated image.`
+  };
+}
+
 function localAnalysis(prompt) {
   const subject = commonSubject(prompt);
   return {
@@ -166,6 +197,7 @@ async function design(req, res) {
   const body = JSON.parse(raw || "{}");
   const prompt = String(body.prompt || "").slice(0, 500);
   const wantsImage = Boolean(body.generateImage);
+  const wantsDylanContext = Boolean(body.dylanContext);
 
   let analysis;
   let source = `Pollinations LLM (${pollinationsTextModel})`;
@@ -176,6 +208,15 @@ async function design(req, res) {
     source = `local subject fallback - LLM failed: ${error.message}`;
   }
 
+  let notes = {};
+  if (wantsDylanContext) {
+    try {
+      notes = await buildDylanNotes(prompt, analysis);
+    } catch {
+      notes = localDylanNotes(prompt, analysis);
+    }
+  }
+
   const result = {
     source,
     plan: {
@@ -183,6 +224,7 @@ async function design(req, res) {
       mood: analysis.mood,
       interpretation: analysis.interpretation,
       subject: analysis.subject,
+      notes,
       palette: { backgroundA: "#111111", backgroundB: "#252525", accent: "#d0a342" },
       tiles: []
     }

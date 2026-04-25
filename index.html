@@ -47,6 +47,12 @@
         Generate a text-to-image reference
       </label>
 
+      <label class="switch-row">
+        <span>Dylan context notes</span>
+        <input id="dylanToggle" class="switch-input" type="checkbox" checked>
+        <span class="switch-ui" aria-hidden="true"></span>
+      </label>
+
       <button id="generate" class="primary">Generate Mosaic</button>
 
       <div class="tech">
@@ -82,6 +88,13 @@
           <p id="imageStatus">No image yet.</p>
         </div>
         <img id="referenceImage" alt="AI image generation reference">
+      </section>
+
+      <section class="notes">
+        <p class="label">Artwork notes</p>
+        <div id="artworkNotes" class="note-grid">
+          <p>Generate a mosaic to see subject, threshold, badge, farewell, and historical context notes.</p>
+        </div>
       </section>
     </section>
   </main>

@@ -8,8 +8,9 @@ The current pipeline works like this:
 2. The image model generates a centered pixel-art reference image of that subject.
 3. The browser samples the generated image into a 16x16 canvas.
 4. The sampled colors and contrast values are rendered as 256 CSS tiles.
+5. Optional Dylan context notes connect the subject to threshold, badge/burden, farewell, and 1973 historical context without changing the generated image subject.
 
-The main artwork is the CSS tile mosaic. The generated image is shown as a reference layer so the viewer can compare the AI image and the CSS interpretation.
+The main artwork is the CSS tile mosaic. The generated image is shown above the artwork notes as a reference layer so the viewer can compare the AI image and the CSS interpretation before reading the contextual explanation.
 
 ## Bob Dylan Song Prompts
 
@@ -23,9 +24,13 @@ Examples:
 - `A Hard Rain's A-Gonna Fall`: rain clouds, storm eye
 - `Like a Rolling Stone`: rolling stone, lonely road
 
+## Dylan Context Notes
+
+The `Dylan context notes` iOS-style switch adds an interpretive layer below the image reference. It does not modify the image generation prompt. Instead, it explains how the chosen subject can be read through the assignment's required context: threshold, badge/burden, farewell/mortality, the Vietnam-era anti-war atmosphere, and the western film context of the song.
+
 ## AI Techniques
 
-1. **LLM-based prompt analysis:** A Pollinations text model extracts and normalizes the visual subject.
+1. **LLM-based prompt analysis and contextual interpretation:** A Pollinations text model extracts and normalizes the visual subject. When Dylan context is enabled, it also generates concise artwork notes.
 2. **Text-to-image generation:** A Pollinations image model generates the reference image that is sampled into the CSS mosaic.
 
 ## How To Run
