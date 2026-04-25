@@ -1,0 +1,10 @@
+{
+  "name": "knock-64-tile-threshold",
+  "version": "1.0.0",
+  "description": "Prompt-to-64-CSS-tile mosaic artwork for CSE 358 KNOCK project.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "license": "MIT"
+}
