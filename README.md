@@ -1,5 +1,8 @@
 # KNOCK - 256 Tile Prompt Mosaic
 
+**Student:** Yağız Ömür Arık  
+**Student Number:** 20190808027
+
 ## Project Description and Artistic Statement
 
 KNOCK - 256 Tile Prompt Mosaic is an interactive creative AI artwork for CSE 358. The user enters any visual prompt, and the system turns that prompt into a 16x16 CSS mosaic made of 256 animated tiles.

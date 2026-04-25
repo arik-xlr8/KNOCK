@@ -1,5 +1,8 @@
 # KNOCK - Artist's Manifesto
 
+**Student:** Yağız Ömür Arık  
+**Student Number:** 20190808027
+
 This project is built around a simple rule: whatever the user writes, the system should try to turn that exact prompt into a visual form. If the user writes "bear," the work should move toward a bear. If the user writes "door," it should move toward a door. If the user writes "badge," it should become a badge-like mosaic. I do not want the AI to replace the user's prompt with Bob Dylan, a singer, a cowboy, or a historical figure. The user's word is the center of the work.
 
 The artwork uses a 16x16 grid, which means the image is made from exactly 256 CSS tiles. Each tile is a small HTML element styled with CSS. Together, the tiles form a pixel-like mosaic. This grid is important because it creates a visible limitation. Instead of asking AI to generate a perfect illustration, the project asks AI to make 256 small decisions: which tiles are active, what color they should be, how intense they are, and how they should contribute to the silhouette.
