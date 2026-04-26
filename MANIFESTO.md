@@ -2,6 +2,7 @@
 
 **Student:** Yağız Ömür Arık  
 **Student Number:** 20190808027
+**Web App Link:** https://knock-project.xyz/
 
 This project is built around a simple rule: whatever the user writes, the system should try to turn that exact prompt into a visual form. If the user writes "bear," the work should move toward a bear. If the user writes "door," it should move toward a door. If the user writes "badge," it should become a badge-like mosaic. I do not want the AI to replace the user's prompt with Bob Dylan, a singer, a cowboy, or a historical figure. The user's word is the center of the work.
 
