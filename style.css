@@ -95,6 +95,10 @@ select {
   font: 15px/1.45 Arial, sans-serif;
 }
 
+#songSelect{
+  background-color: rgba(48, 48, 48, 0.801);
+}
+
 textarea {
   min-height: 116px;
   padding: 12px;
